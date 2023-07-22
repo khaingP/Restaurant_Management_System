@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="top-bar" style="background-color: #8AC3C7;">
+    <button type="button" class="top-bar-button">Login</button>
+    <button type="button" class="top-bar-button" onclick="window.history.back()">Back</button>
+</div>
+    <div class="container">
+        <h2>Ordered Dishes</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="orderedDish : ${orderedDishes}">
+                <td th:text="${orderedDish.menuItem.name}"></td>
+                <td th:text="${orderedDish.quantity}"></td>
+                <td th:text="${orderedDish.menuItem.price}"></td>
+                <td th:text="${orderedDish.quantity * orderedDish.menuItem.price}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <h3 style="color: #8AC3C7;">Total Amount: <span th:text="${totalAmount} " style="color: #8AC3C7;"></span></h3>
+        <form action="/placeOrder" method="get">
+            <h4>Order Type:</h4>
+                <form action="/placeOrder" method="get">
+            <select id="selectType" name="selectType" onchange="updateSelect()">
+                <option value="Standard">Standard</option>
+                <option value="Express">Express</option>
+            </select>
+            <br>
+            <h4>Payment Method:</h4>
+            <label>
+                <input type="radio" name="paymentMethod" value="Online" checked> Online Payment
+            </label>
+            <br>
+            <label>
+                <input type="radio" name="paymentMethod" value="Cash"> Cash on Delivery
+            </label>
+            <br>
+    <!--        <input type="hidden" name="ID" value="123" />-->
+            <!--        <input type="hidden" name="orderType" id="orderType" value="Standard"/>-->
+    <!--        <input type="hidden" name="totalAmount" id="totalAmount" value=45/>-->
+    <!--        <input type="hidden" name="orderedDishes" id="orderedDishes" value="Standard"/>-->
+            <button type="submit">Place Order</button>
+        </form>
+
+
+    </div>
+<div>
+<!--    <div class="footer" style="background-color: #8AC3C7; padding: 30px; text-align: center; color: white;"></div>-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
